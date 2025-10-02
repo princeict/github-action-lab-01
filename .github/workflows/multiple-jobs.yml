@@ -23,4 +23,15 @@ test:
       run: |
         echo "🧪 Running tests..."
         echo "All tests passed!"
+
+deploy:
+  name: Deploy Application
+  needs: [build, test]  # Depends on both build and test jobs
+  runs-on: ubuntu-latest
+  steps:
+    - name: Deploy
+      run: |
+        echo "🚀 Deploying application..."
+        echo "Deployment successful!"
+        
         
