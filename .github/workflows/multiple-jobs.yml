@@ -13,3 +13,14 @@ build:
       run: |
         echo "🏗️ Building the application..."
         echo "Build completed successfully!"
+
+test:
+  name: Run Tests
+  needs: build  # Depends on build job
+  runs-on: ubuntu-latest
+  steps:
+    - name: Run tests
+      run: |
+        echo "🧪 Running tests..."
+        echo "All tests passed!"
+        
