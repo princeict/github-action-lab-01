@@ -33,5 +33,15 @@ deploy:
       run: |
         echo "🚀 Deploying application..."
         echo "Deployment successful!"
+
+notify:
+    name: Send Notification
+    needs: deploy  # Depends on deploy job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification
+        run: |
+          echo "📧 Sending deployment notification..."
+          echo "Notification sent!"        
         
         
