@@ -3,38 +3,45 @@ on:
   push:
     branches:
       - main
-build:
-  name: Build Application 1
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    - name: Build step
-      run: |
-        echo "🏗️ Building the application..."
-        echo "Build completed successfully!"
 
-test:
-  name: Run Tests
-  needs: build  # Depends on build job
-  runs-on: ubuntu-latest
-  steps:
-    - name: Run tests
-      run: |
-        echo "🧪 Running tests..."
-        echo "All tests passed!"
+jobs:
+  # First job: Build
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build step
+        run: |
+          echo "🏗️ Building the application..."
+          echo "Build completed successfully!"
+  
+  # Second job: Test
+  test:
+    name: Run Tests
+    needs: build  # Depends on build job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: |
+          echo "🧪 Running tests..."
+          echo "All tests passed!"
+  
+  # Third job: Deploy
+  deploy:
+    name: Deploy Application
+    needs: [build, test]  # Depends on both build and test jobs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          echo "🚀 Deploying application..."
+          echo "Deployment successful!"
 
-deploy:
-  name: Deploy Application
-  needs: [build, test]  # Depends on both build and test jobs
-  runs-on: ubuntu-latest
-  steps:
-    - name: Deploy
-      run: |
-        echo "🚀 Deploying application..."
-        echo "Deployment successful!"
-
-notify:
+  # Fourth job: Notify
+  notify:
     name: Send Notification
     needs: deploy  # Depends on deploy job
     runs-on: ubuntu-latest
@@ -42,6 +49,4 @@ notify:
       - name: Send notification
         run: |
           echo "📧 Sending deployment notification..."
-          echo "Notification sent!"        
-        
-        
+          echo "Notification sent!"
