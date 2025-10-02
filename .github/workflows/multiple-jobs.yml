@@ -1,0 +1,15 @@
+name: Multiple Jobs Lab
+on:
+  push:
+    branches:
+      - main
+build:
+  name: Build Application
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Build step
+      run: |
+        echo "🏗️ Building the application..."
+        echo "Build completed successfully!"
